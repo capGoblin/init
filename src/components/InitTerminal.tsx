@@ -10,9 +10,25 @@ export const InitTerminal = () => {
         <p>
           {" "}
           <span className="text-green-500 font-semibold">$</span>{" "}
-          <span className="initCommand font-semibold">
-            init -n my-app --mui --shadcn
+          <span className="initCommand font-semibold text-white">
+            init -n my-app --mui --node --pg
           </span>
+        </p>
+        <p className="mt-4">
+          {" "}
+          <span className="mt-5 text-white">
+            Your NextJs project is{" "}
+            <span className="text-green-500 underline decoration-2">ready</span>{" "}
+            with{" "}
+            <span className="text-blue-500">
+              Typescript, TailwindCSS, Material UI{" "}
+            </span>
+            already Intgerated along with{" "}
+            <span className="text-blue-500">Backend Boilerplate</span>
+          </span>{" "}
+        </p>
+        <p className="text-gray-400 opacity-50">
+          // and that is all it takes!!
         </p>
       </div>
     </div>

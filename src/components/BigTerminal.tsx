@@ -51,17 +51,32 @@ export const BigTerminal = () => {
           </span>
         </p>
         <p className={` font-semibold mt-2  text-white `}>
-          Creating a new Next.js app in /Users/Code/Project.{" "}
+          <span className="text-green-500">&#10004;</span> Writing
+          Components.json{" "}
+        </p>
+        <p className={` font-semibold mt-2  text-white `}>
+          <span className="text-green-500">&#10004;</span> Initializing Project{" "}
+        </p>
+        <p className={` font-semibold mt-2  text-white `}>
+          <span className="text-green-500">&#10004;</span> Installing
+          Dependencies{" "}
+        </p>
+        <p className={` font-semibold mt-2  text-white `}>
+          Project initializiation complete in /Users/Code/Project.{" "}
         </p>
         <p className={` font-semibold mt-1  text-white `}>
           <span className="text-blue-500">cd</span> my-app{" "}
         </p>
-        <p>
+        <p className="mt-2">
           {" "}
           <span className="text-green-500 font-semibold mt-2">$</span>{" "}
-          <span className="initCommand font-semibold">
+          <span className="initCommand font-semibold text-white ">
             npm install @mui/material @emotion/react @emotion/styled
           </span>
+        </p>
+        <p className="initCommand font-semibold mt-2 text-white">
+          {" "}
+          Installing required modules...
         </p>
       </div>
     </div>
