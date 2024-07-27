@@ -1,7 +1,9 @@
 import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
-import { HeroCards } from "./HeroCards";
+// import { HeroCards } from "./HeroCards";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { Terminal } from "./Terminal";
+import { RxDownload } from "react-icons/rx";
 
 export const Hero = () => {
   return (
@@ -10,30 +12,36 @@ export const Hero = () => {
         <main className="text-5xl md:text-6xl font-bold">
           <h1 className="inline">
             <span className="inline bg-gradient-to-r from-[#F596D3]  to-[#D247BF] text-transparent bg-clip-text">
-              Shadcn
+              Streamline
             </span>{" "}
-            landing page
+            your
           </h1>{" "}
-          for{" "}
           <h2 className="inline">
             <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text">
-              React
+              Development
             </span>{" "}
-            developers
+            workflow
           </h2>
         </main>
 
         <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
-          Build your React landing page effortlessly with the required sections
-          to your project.
+          Effortlessly create projects with customizable setups in a single
+          command.
         </p>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4">
-          <Button className="w-full md:w-1/3">Get Started</Button>
+          <Button className=" ">
+            <RxDownload />
+            <span className="ml-2">Linux</span>
+          </Button>
+          <Button className=" ">
+            <RxDownload />
+            <span className="ml-2">Windows</span>
+          </Button>
 
           <a
             rel="noreferrer noopener"
-            href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+            href="https://github.com/capGoblin/init"
             target="_blank"
             className={`w-full md:w-1/3 ${buttonVariants({
               variant: "outline",
@@ -47,7 +55,8 @@ export const Hero = () => {
 
       {/* Hero cards sections */}
       <div className="z-10">
-        <HeroCards />
+        {/* <HeroCards /> */}
+        <Terminal />
       </div>
 
       {/* Shadow effect */}
