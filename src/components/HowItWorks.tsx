@@ -1,63 +1,23 @@
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "../components/Icons";
-
-interface FeatureProps {
-  icon: JSX.Element;
-  title: string;
-  description: string;
-}
-
-const features: FeatureProps[] = [
-  {
-    icon: <MedalIcon />,
-    title: "Accessibility",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
-  },
-  {
-    icon: <MapIcon />,
-    title: "Community",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
-  },
-  {
-    icon: <PlaneIcon />,
-    title: "Scalability",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
-  },
-  {
-    icon: <GiftIcon />,
-    title: "Gamification",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
-  },
-];
+// import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";s
+import { BigTerminal } from "./BigTerminal";
 
 export const HowItWorks = () => {
   return (
-    <section
-      id="howItWorks"
-      className="container text-center py-24 sm:py-32"
-    >
-      <h2 className="text-3xl md:text-4xl font-bold ">
-        How It{" "}
-        <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
+    <section id="howItWorks" className="container py-24 sm:py-32 ">
+      <h2 className="text-3xl text-center md:text-4xl font-bold pb-5 mb-10">
+        How creating projects with multiple tech stacks has always been a HASSLE{" "}
+        {/* <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
           Works{" "}
-        </span>
-        Step-by-Step Guide
+        </span> */}
       </h2>
-      <p className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground">
+      {/* <p className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
         dolor pariatur sit!
-      </p>
+      </p> */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {features.map(({ icon, title, description }: FeatureProps) => (
-          <Card
-            key={title}
-            className="bg-muted/50"
-          >
+          <Card key={title} className="bg-muted/50">
             <CardHeader>
               <CardTitle className="grid gap-4 place-items-center">
                 {icon}
@@ -67,6 +27,14 @@ export const HowItWorks = () => {
             <CardContent>{description}</CardContent>
           </Card>
         ))}
+      </div> */}
+      <div className="grid grid-cols-2 grid-cols-[1fr_1fr] gap-20">
+        <BigTerminal />
+        <div className="flex justify-center items-center text-3xl font-bold text-end box-border">
+          Setting up a development environment often requires multiple commands
+          to install various frameworks and libraries, leading to unnecessary
+          complexity and time consumption
+        </div>
       </div>
     </section>
   );

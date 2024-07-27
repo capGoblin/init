@@ -1,4 +1,4 @@
-import { About } from "./components/About";
+// import { About } from "./components/About";
 import { Cta } from "./components/Cta";
 import { FAQ } from "./components/FAQ";
 import { Features } from "./components/Features";
@@ -10,7 +10,6 @@ import { Newsletter } from "./components/Newsletter";
 import { Pricing } from "./components/Pricing";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { Services } from "./components/Services";
-import { Sponsors } from "./components/Sponsors";
 import { Team } from "./components/Team";
 import { Testimonials } from "./components/Testimonials";
 import "./App.css";
@@ -20,17 +19,16 @@ function App() {
     <>
       <Navbar />
       <Hero />
-      <Sponsors />
-      <About />
+      {/* <About /> */}
       <HowItWorks />
       <Features />
-      <Services />
+      {/* <Services />
       <Cta />
       <Testimonials />
       <Team />
       <Pricing />
       <Newsletter />
-      <FAQ />
+      <FAQ /> */}
       <Footer />
       <ScrollToTop />
     </>

@@ -1,11 +1,4 @@
-import { Badge } from "./ui/badge";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { InitTerminal } from "./InitTerminal";
 import image from "../assets/growth.png";
 import image3 from "../assets/reflecting.png";
 import image4 from "../assets/looking-ahead.png";
@@ -37,62 +30,26 @@ const features: FeatureProps[] = [
   },
 ];
 
-const featureList: string[] = [
-  "Dark/Light theme",
-  "Reviews",
-  "Features",
-  "Pricing",
-  "Contact form",
-  "Our team",
-  "Responsive design",
-  "Newsletter",
-  "Minimalist",
-];
-
 export const Features = () => {
   return (
-    <section
-      id="features"
-      className="container py-24 sm:py-32 space-y-8"
-    >
+    <section id="features" className="container py-24 sm:py-32 space-y-8">
       <h2 className="text-3xl lg:text-4xl font-bold md:text-center">
-        Many{" "}
+        But{" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Great Features
+          Worry no more
         </span>
       </h2>
-
-      <div className="flex flex-wrap md:justify-center gap-4">
-        {featureList.map((feature: string) => (
-          <div key={feature}>
-            <Badge
-              variant="secondary"
-              className="text-sm"
-            >
-              {feature}
-            </Badge>
-          </div>
-        ))}
-      </div>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {features.map(({ title, description, image }: FeatureProps) => (
-          <Card key={title}>
-            <CardHeader>
-              <CardTitle>{title}</CardTitle>
-            </CardHeader>
-
-            <CardContent>{description}</CardContent>
-
-            <CardFooter>
-              <img
-                src={image}
-                alt="About feature"
-                className="w-[200px] lg:w-[300px] mx-auto"
-              />
-            </CardFooter>
-          </Card>
-        ))}
+      <div className="grid grid-cols-2 grid-cols-[1fr_1fr] gap-20">
+        <InitTerminal />
+        <div className="flex justify-center items-center text-3xl font-bold text-start box-border">
+          <span>
+            with init CLI, you can install both frontend and backend stacks at
+            one{" "}
+            <span className="inline bg-gradient-to-r from-[#96f5ab]  to-[#3bcf0d] text-transparent bg-clip-text">
+              Go!{" "}
+            </span>
+          </span>
+        </div>
       </div>
     </section>
   );
