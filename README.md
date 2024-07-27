@@ -4,9 +4,9 @@ The init tool is a command-line interface for initializing new web projects with
 
 ## Features (so far)
 
-Create Next.js Projects: Quickly bootstrap a new Next.js application with TypeScript, ESLint, Tailwind CSS, and additional configurations.
-Create Vite Projects: Set up a new Vite project with React and TypeScript.
-Shadcn UI Initialization: Automatically run Shadcn UI setup if needed.
+Create Next.js Projects: Quickly bootstrap a new Next.js application with TypeScript, ESLint, Tailwind CSS, and additional configurations. <br>
+Create Vite Projects: Set up a new Vite project with React and TypeScript. <br>
+Shadcn UI Initialization: Automatically run Shadcn UI setup if needed. <br>
 Install MUI Packages: Install Material-UI packages for your project.
 
 ## Installation
@@ -26,8 +26,6 @@ Build the CLI tool:
 cd cmd
 go build -o next-cli
 ```
-
-Make sure the init binary is in your PATH or use it from the build directory.
 
 ## Usage
 
@@ -62,4 +60,9 @@ Flags:
 --tw: To add tailwindcss to the vite app
 --shadcn: Run Shadcn UI initialization after creating the Next.js app.
 --mui: Install MUI packages after creating the Next.js app.
+
 Example:
+
+```sh
+./init init -v my-next-app --tw --mui
+```
