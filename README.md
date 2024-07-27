@@ -1,13 +1,14 @@
 # init
 
-The init tool is a command-line interface for initializing new web projects with popular frameworks and configurations. It supports both Next.js and Vite projects and includes options for additional configurations like Shadcn UI and MUI (Material-UI).
+The init tool is a command-line interface for initializing new web projects with popular frameworks and configurations. It supports both Next.js and Vite projects and includes options for additional configurations like Shadcn UI and MUI (Material-UI), and can also set up backend projects using Node.js or Go with optional PostgreSQL integration.
 
 ## Features (so far)
 
 Create Next.js Projects: Quickly bootstrap a new Next.js application with TypeScript, ESLint, Tailwind CSS, and additional configurations. <br>
 Create Vite Projects: Set up a new Vite project with React and TypeScript. <br>
 Shadcn UI Initialization: Automatically run Shadcn UI setup if needed. <br>
-Install MUI Packages: Install Material-UI packages for your project.
+Install MUI Packages: Install Material-UI packages for your project. <br>
+Set Up Backend Projects: Initialize Node.js or Go backend projects, with optional PostgreSQL integration.
 
 ## Installation
 
@@ -65,4 +66,38 @@ Example:
 
 ```sh
 ./init init -v my-next-app --tw --mui
+```
+
+### Initialize a Node.js Backend
+
+To create a new Node.js backend project with optional PostgreSQL support, use:
+
+```sh
+./init init --node [flags]
+```
+
+Flags:
+--pg: Include PostgreSQL database integration.
+
+Example:
+
+```sh
+./init init --node --pg
+```
+
+### Initialize a Go Backend
+
+To create a new Go backend project with optional PostgreSQL support, use:
+
+```sh
+./init init --go [flags]
+```
+
+Flags:
+--pg: Include PostgreSQL database integration.
+
+Example:
+
+```sh
+./init init --go --pg
 ```
