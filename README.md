@@ -29,7 +29,7 @@ Build the CLI tool:
 
 ```sh
 cd cmd
-go build -o next-cli
+go build -o init
 ```
 
 ## Usage
@@ -104,4 +104,11 @@ Example:
 
 ```sh
 ./init init -b go --pg
+```
+
+### Initialize both frontend and backend in a single command:
+
+```sh
+./init init -f vite --shadcn -b go --pg
+./init init -f next --mui -b node --pg
 ```
