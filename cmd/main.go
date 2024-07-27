@@ -52,12 +52,14 @@ func main() {
 	var shadcn bool
 	var mui bool
 	var tailwind bool
+	var backendGo bool
+	var databasePg bool
 
 	var rootCmd = &cobra.Command{
 		Use:   "init",
 		Short: "Initialize a new project with predefined settings",
 		Run: func(cmd *cobra.Command, args []string) {
-			if nextName == "" && viteName == "" {
+			if nextName == "" && viteName == "" && !backendGo {
 				fmt.Println("Error: Project name is required")
 				cmd.Help()
 				return
@@ -513,6 +515,99 @@ module.exports = {
 
 				fmt.Printf("Project %s initialized successfully!\n", nextName)
 			}
+
+			if backendGo {
+				// Step 1: Create Go project directory
+				goDir := "go-backend"
+				if err := createDirIfNotExist(goDir); err != nil {
+					fmt.Printf("Error creating Go project directory: %v\n", err)
+					return
+				}
+
+				// Step 2: Initialize Go module
+				fmt.Printf("Initializing Go module...\n")
+				if err := runCommand("go mod init go-backend", goDir); err != nil {
+					fmt.Printf("Error initializing Go module: %v\n", err)
+					return
+				}
+
+				// Step 3: Create basic Go files
+				mainGoContent := `package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello, Go backend!")
+}
+`
+				if err := writeFile(filepath.Join(goDir, "main.go"), mainGoContent); err != nil {
+					fmt.Printf("Error writing to main.go: %v\n", err)
+					return
+				}
+
+				// Step 4: Initialize Go module
+				if err := runCommand("go mod tidy", goDir); err != nil {
+					fmt.Printf("Error running go mod tidy: %v\n", err)
+					return
+				}
+
+				// Step 5: Create Dockerfile for Go backend
+				dockerfileContent := `FROM golang:1.20-alpine
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+RUN go build -o main .
+
+EXPOSE 8080
+
+CMD ["./main"]
+`
+				if err := writeFile(filepath.Join(goDir, "Dockerfile"), dockerfileContent); err != nil {
+					fmt.Printf("Error writing to Dockerfile: %v\n", err)
+					return
+				}
+
+				// Step 6: Add PostgreSQL configuration if requested
+				if databasePg {
+					fmt.Printf("Adding PostgreSQL configuration...\n")
+
+					// Create a basic configuration file for PostgreSQL
+					configContent := `package config
+
+import (
+	"os"
+)
+
+type Config struct {
+	DatabaseURL string
+}
+
+func LoadConfig() (Config, error) {
+	return Config{
+		DatabaseURL: getEnv("DATABASE_URL", "postgres://user:pass@localhost:5432/dbname"),
+	}, nil
+}
+
+func getEnv(key, fallback string) string {
+	if value, exists := os.LookupEnv(key); exists {
+		return value
+	}
+	return fallback
+}
+`
+					if err := writeFile(filepath.Join(goDir, "config.go"), configContent); err != nil {
+						fmt.Printf("Error writing to config.go: %v\n", err)
+						return
+					}
+				}
+
+				fmt.Println("Go backend initialization completed successfully!")
+			}
 		},
 	}
 
@@ -521,6 +616,8 @@ module.exports = {
 	rootCmd.Flags().BoolVar(&shadcn, "shadcn", false, "Run shadcn-ui init with -d flag after creating the Next.js app")
 	rootCmd.Flags().BoolVar(&mui, "mui", false, "Install MUI packages after creating the Next.js app")
 	rootCmd.Flags().BoolVar(&tailwind, "tw", false, "Install Tailwind CSS in a Vite project")
+	rootCmd.Flags().BoolVar(&backendGo, "b", false, "Set up a Go backend")
+	rootCmd.Flags().BoolVar(&databasePg, "d", false, "Include PostgreSQL database")
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
