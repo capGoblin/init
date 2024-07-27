@@ -4,11 +4,15 @@ The init tool is a command-line interface for initializing new web projects with
 
 ## Features (so far)
 
-Create Next.js Projects: Quickly bootstrap a new Next.js application with TypeScript, ESLint, Tailwind CSS, and additional configurations. <br>
-Create Vite Projects: Set up a new Vite project with React and TypeScript. <br>
-Shadcn UI Initialization: Automatically run Shadcn UI setup if needed. <br>
-Install MUI Packages: Install Material-UI packages for your project. <br>
-Set Up Backend Projects: Initialize Node.js or Go backend projects, with optional PostgreSQL integration.
+### Frontend Initialization:
+
+- Next.js Projects: Bootstrap a new Next.js application with TypeScript, ESLint, Tailwind CSS, and additional configurations like Shadcn UI and MUI.
+- Vite Projects: Set up a new Vite project with React and TypeScript, with optional Shadcn UI integration.
+
+### Backend Initialization:
+
+- Go Projects: Create a new Go backend project, optionally with PostgreSQL integration.
+- Node.js Projects: Set up a new Node.js backend project, optionally with PostgreSQL integration.
 
 ## Installation
 
@@ -35,7 +39,7 @@ go build -o next-cli
 To create a new Next.js project with specific settings, use:
 
 ```sh
-./init init -n <app-name> [flags]
+./init init -f next [flags]
 ```
 
 Flags:
@@ -45,7 +49,7 @@ Flags:
 Example:
 
 ```sh
-./init init -n my-next-app --shadcn --mui
+./init init -f next --shadcn --mui
 ```
 
 ### Initialize a Vite Project
@@ -53,7 +57,7 @@ Example:
 To create a new Vite project with React and TypeScript, use:
 
 ```sh
-./init init -v <app-name> [flags]
+./init init -f vite [flags]
 ```
 
 Flags:
@@ -65,7 +69,7 @@ Flags:
 Example:
 
 ```sh
-./init init -v my-next-app --tw --mui
+./init init -f -vite --tw --mui
 ```
 
 ### Initialize a Node.js Backend
@@ -73,7 +77,7 @@ Example:
 To create a new Node.js backend project with optional PostgreSQL support, use:
 
 ```sh
-./init init --node [flags]
+./init init -b node [flags]
 ```
 
 Flags:
@@ -82,7 +86,7 @@ Flags:
 Example:
 
 ```sh
-./init init --node --pg
+./init init -b node --pg
 ```
 
 ### Initialize a Go Backend
@@ -90,7 +94,7 @@ Example:
 To create a new Go backend project with optional PostgreSQL support, use:
 
 ```sh
-./init init --go [flags]
+./init init -b go [flags]
 ```
 
 Flags:
@@ -99,5 +103,5 @@ Flags:
 Example:
 
 ```sh
-./init init --go --pg
+./init init -b go --pg
 ```

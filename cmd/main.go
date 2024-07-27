@@ -47,28 +47,28 @@ func createDirIfNotExist(dirPath string) error {
 }
 
 func main() {
-	var nextName string
-	var viteName string
+	var backend string
+	var frontend string
 	var shadcn bool
 	var mui bool
 	var tailwind bool
-	var backendGo bool
-	var backendNode bool
 	var databasePg bool
 
 	var rootCmd = &cobra.Command{
 		Use:   "init",
 		Short: "Initialize a new project with predefined settings",
 		Run: func(cmd *cobra.Command, args []string) {
-			if nextName == "" && viteName == "" && !backendGo && !backendNode {
-				fmt.Println("Error: Project name is required")
-				cmd.Help()
-				return
+			// Set default app names
+			appName := "default-app"
+			if frontend == "vite" {
+				appName = "vite-app"
+			} else if frontend == "next" {
+				appName = "next-app"
 			}
 
-			if viteName != "" {
+			if frontend == "vite" {
 				// Step 1: Create Vite project
-				viteCmdStr := fmt.Sprintf("npm create vite@latest %s -- --template react-ts", viteName)
+				viteCmdStr := fmt.Sprintf("npm create vite@latest %s -- --template react-ts", appName)
 				fmt.Printf("Executing: %s\n", viteCmdStr)
 				if err := runCommand(viteCmdStr, "."); err != nil {
 					fmt.Printf("Error creating Vite project: %v\n", err)
@@ -76,7 +76,7 @@ func main() {
 				}
 
 				// Ensure the Vite project directory exists
-				viteDir := fmt.Sprintf("./%s", viteName)
+				viteDir := fmt.Sprintf("./%s", appName)
 				if _, err := os.Stat(viteDir); os.IsNotExist(err) {
 					fmt.Printf("Error: The directory %s does not exist\n", viteDir)
 					return
@@ -466,13 +466,13 @@ module.exports = {
 					}
 				}
 
-				fmt.Printf("Project %s initialized successfully with Vite!\n", viteName)
+				fmt.Printf("Project %s initialized successfully with Vite!\n", appName)
 				return
 			}
 
-			if nextName != "" {
+			if frontend == "next" {
 				// Default behavior: Create Next.js app
-				createCmdStr := fmt.Sprintf("npx create-next-app@latest %s --typescript --eslint --tailwind --app --no-src-dir --no-import-alias", nextName)
+				createCmdStr := fmt.Sprintf("npx create-next-app@latest %s --typescript --eslint --tailwind --app --no-src-dir --no-import-alias", appName)
 				fmt.Printf("Executing: %s\n", createCmdStr)
 				if err := runCommand(createCmdStr, "."); err != nil {
 					fmt.Printf("Error creating Next.js app: %v\n", err)
@@ -480,7 +480,7 @@ module.exports = {
 				}
 
 				// Ensure the app directory exists
-				appDir := fmt.Sprintf("./%s", nextName)
+				appDir := fmt.Sprintf("./%s", appName)
 				if _, err := os.Stat(appDir); os.IsNotExist(err) {
 					fmt.Printf("Error: The directory %s does not exist\n", appDir)
 					return
@@ -514,10 +514,10 @@ module.exports = {
 					}
 				}
 
-				fmt.Printf("Project %s initialized successfully!\n", nextName)
+				fmt.Printf("Project %s initialized successfully!\n", appName)
 			}
 
-			if backendGo {
+			if backend == "go" {
 				// Step 1: Create Go project directory
 				goDir := "go-backend"
 				if err := createDirIfNotExist(goDir); err != nil {
@@ -611,7 +611,7 @@ func getEnv(key, fallback string) string {
 			}
 
 
-			if backendNode {
+			if backend == "node" {
 				// Step 1: Create Node.js project directory
 				nodeDir := "node-backend"
 				if err := createDirIfNotExist(nodeDir); err != nil {
@@ -722,128 +722,16 @@ app.listen(port, () => {
 
 				fmt.Println("Node.js backend initialization completed successfully!")
 			}
-// 			if backendNode {
-// 				// Step 1: Create Node.js project directory
-// 				nodeDir := "node-backend"
-// 				if err := createDirIfNotExist(nodeDir); err != nil {
-// 					fmt.Printf("Error creating Node.js project directory: %v\n", err)
-// 					return
-// 				}
 
-// 				// Step 2: Initialize Node.js project
-// 				fmt.Printf("Initializing Node.js project...\n")
-// 				if err := runCommand("npm init -y", nodeDir); err != nil {
-// 					fmt.Printf("Error initializing Node.js project: %v\n", err)
-// 					return
-// 				}
-
-// 				// Step 3: Install Express
-// 				fmt.Printf("Installing Express...\n")
-// 				if err := runCommand("npm install express", nodeDir); err != nil {
-// 					fmt.Printf("Error installing Express: %v\n", err)
-// 					return
-// 				}
-
-// 				// Step 4: Create basic Express server file
-// 				serverJSContent := `const express = require('express');
-// const app = express();
-// const port = process.env.PORT || 3000;
-
-// app.get('/', (req, res) => {
-//   res.send('Hello, Express backend!');
-// });
-
-// app.listen(port, () => {
-//   console.log('Server is running');
-// });
-// `
-// 				if err := writeFile(filepath.Join(nodeDir, "server.js"), serverJSContent); err != nil {
-// 					fmt.Printf("Error writing to server.js: %v\n", err)
-// 					return
-// 				}
-
-// 				// Step 5: Create Dockerfile for Node.js backend
-// 				dockerfileContent := `FROM node:18
-
-// WORKDIR /app
-
-// COPY package*.json ./
-
-// RUN npm install
-
-// COPY . .
-
-// EXPOSE 3000
-
-// CMD ["node", "server.js"]
-// `
-// 				if err := writeFile(filepath.Join(nodeDir, "Dockerfile"), dockerfileContent); err != nil {
-// 					fmt.Printf("Error writing to Dockerfile: %v\n", err)
-// 					return
-// 				}
-
-// 				// Step 6: Add PostgreSQL configuration if requested
-// 				if databasePg {
-// 					fmt.Printf("Adding PostgreSQL configuration...\n")
-
-// 					// Install PostgreSQL client for Node.js
-// 					if err := runCommand("npm install pg", nodeDir); err != nil {
-// 						fmt.Printf("Error installing PostgreSQL client: %v\n", err)
-// 						return
-// 					}
-
-// 					// Create a basic configuration file for PostgreSQL
-// 					configContent := `const { Pool } = require('pg');
-// const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL || 'postgres://user:pass@localhost:5432/dbname',
-// });
-
-// module.exports = pool;
-// `
-// 					if err := writeFile(filepath.Join(nodeDir, "config.js"), configContent); err != nil {
-// 						fmt.Printf("Error writing to config.js: %v\n", err)
-// 						return
-// 					}
-
-// 					// Update server.js to use PostgreSQL
-// 					serverJSWithPgContent := `const express = require('express');
-// const app = express();
-// const port = process.env.PORT || 3000;
-// const pool = require('./config');
-
-// app.get('/', async (req, res) => {
-//   const client = await pool.connect();
-//   try {
-//     const result = await client.query('SELECT NOW()');
-//     res.send('Hello, Express backend');
-//   } finally {
-//     client.release();
-//   }
-// });
-
-// app.listen(port, () => {
-//   console.log('Server is running');
-// });
-// `
-// 					if err := writeFile(filepath.Join(nodeDir, "server.js"), serverJSWithPgContent); err != nil {
-// 						fmt.Printf("Error writing to server.js with PostgreSQL: %v\n", err)
-// 						return
-// 					}
-// 				}
-
-// 				fmt.Println("Node.js backend initialization completed successfully!")
-// 			}
 		},
 	}
 
 
-	rootCmd.Flags().StringVarP(&nextName, "next", "n", "", "Name of the Next.js project")
-	rootCmd.Flags().StringVarP(&viteName, "vite", "v", "", "Name of the Vite project")
-	rootCmd.Flags().BoolVar(&shadcn, "shadcn", false, "Run shadcn-ui init with -d flag after creating the Next.js app")
-	rootCmd.Flags().BoolVar(&mui, "mui", false, "Install MUI packages after creating the Next.js app")
+	rootCmd.Flags().StringVarP(&frontend, "frontend", "f", "", "Frontend framework to use (vite or next)")
+	rootCmd.Flags().StringVarP(&backend, "backend", "b", "", "Backend framework to use (go or node)")
+	rootCmd.Flags().BoolVar(&shadcn, "shadcn", false, "Run shadcn-ui init with -d flag after creating the app")
+	rootCmd.Flags().BoolVar(&mui, "mui", false, "Install MUI packages after creating the app")
 	rootCmd.Flags().BoolVar(&tailwind, "tw", false, "Install Tailwind CSS in a Vite project")
-	rootCmd.Flags().BoolVar(&backendGo, "go", false, "Set up a Go backend")
-	rootCmd.Flags().BoolVar(&backendNode, "node", false, "Set up a Node.js Express backend")
 	rootCmd.Flags().BoolVar(&databasePg, "pg", false, "Include PostgreSQL database")
 
 	if err := rootCmd.Execute(); err != nil {
