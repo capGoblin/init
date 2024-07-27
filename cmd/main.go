@@ -53,13 +53,14 @@ func main() {
 	var mui bool
 	var tailwind bool
 	var backendGo bool
+	var backendNode bool
 	var databasePg bool
 
 	var rootCmd = &cobra.Command{
 		Use:   "init",
 		Short: "Initialize a new project with predefined settings",
 		Run: func(cmd *cobra.Command, args []string) {
-			if nextName == "" && viteName == "" && !backendGo {
+			if nextName == "" && viteName == "" && !backendGo && !backendNode {
 				fmt.Println("Error: Project name is required")
 				cmd.Help()
 				return
@@ -608,16 +609,242 @@ func getEnv(key, fallback string) string {
 
 				fmt.Println("Go backend initialization completed successfully!")
 			}
+
+
+			if backendNode {
+				// Step 1: Create Node.js project directory
+				nodeDir := "node-backend"
+				if err := createDirIfNotExist(nodeDir); err != nil {
+					fmt.Printf("Error creating Node.js project directory: %v\n", err)
+					return
+				}
+
+				// Step 2: Initialize Node.js project
+				fmt.Printf("Initializing Node.js project...\n")
+				if err := runCommand("npm init -y", nodeDir); err != nil {
+					fmt.Printf("Error initializing Node.js project: %v\n", err)
+					return
+				}
+
+				// Step 3: Install Express
+				fmt.Printf("Installing Express...\n")
+				if err := runCommand("npm install express", nodeDir); err != nil {
+					fmt.Printf("Error installing Express: %v\n", err)
+					return
+				}
+
+				// Step 4: Create basic Express server file
+				serverJSContent := `const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello, Express backend!');
+});
+
+app.listen(port, () => {
+  console.log('Server is running');
+});
+`
+				if err := writeFile(filepath.Join(nodeDir, "server.js"), serverJSContent); err != nil {
+					fmt.Printf("Error writing to server.js: %v\n", err)
+					return
+				}
+
+				// Step 5: Create Dockerfile for Node.js backend
+				dockerfileContent := `FROM node:18
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
+`
+				if err := writeFile(filepath.Join(nodeDir, "Dockerfile"), dockerfileContent); err != nil {
+					fmt.Printf("Error writing to Dockerfile: %v\n", err)
+					return
+				}
+
+				// Step 6: Add PostgreSQL configuration if requested
+				if databasePg {
+					fmt.Printf("Adding PostgreSQL configuration...\n")
+
+					// Install PostgreSQL client for Node.js
+					if err := runCommand("npm install pg", nodeDir); err != nil {
+						fmt.Printf("Error installing PostgreSQL client: %v\n", err)
+						return
+					}
+
+					// Create a basic configuration file for PostgreSQL
+					configContent := `const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL || 'postgres://user:pass@localhost:5432/dbname',
+});
+
+module.exports = pool;
+`
+					if err := writeFile(filepath.Join(nodeDir, "config.js"), configContent); err != nil {
+						fmt.Printf("Error writing to config.js: %v\n", err)
+						return
+					}
+
+					// Update server.js to use PostgreSQL
+					serverJSWithPgContent := `const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
+const pool = require('./config');
+
+app.get('/', async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const result = await client.query('SELECT NOW()');
+    res.send('Hello, Express backend');
+  } finally {
+    client.release();
+  }
+});
+
+app.listen(port, () => {
+  console.log('Server is running');
+});
+`
+					if err := writeFile(filepath.Join(nodeDir, "server.js"), serverJSWithPgContent); err != nil {
+						fmt.Printf("Error writing to server.js with PostgreSQL: %v\n", err)
+						return
+					}
+				}
+
+				fmt.Println("Node.js backend initialization completed successfully!")
+			}
+// 			if backendNode {
+// 				// Step 1: Create Node.js project directory
+// 				nodeDir := "node-backend"
+// 				if err := createDirIfNotExist(nodeDir); err != nil {
+// 					fmt.Printf("Error creating Node.js project directory: %v\n", err)
+// 					return
+// 				}
+
+// 				// Step 2: Initialize Node.js project
+// 				fmt.Printf("Initializing Node.js project...\n")
+// 				if err := runCommand("npm init -y", nodeDir); err != nil {
+// 					fmt.Printf("Error initializing Node.js project: %v\n", err)
+// 					return
+// 				}
+
+// 				// Step 3: Install Express
+// 				fmt.Printf("Installing Express...\n")
+// 				if err := runCommand("npm install express", nodeDir); err != nil {
+// 					fmt.Printf("Error installing Express: %v\n", err)
+// 					return
+// 				}
+
+// 				// Step 4: Create basic Express server file
+// 				serverJSContent := `const express = require('express');
+// const app = express();
+// const port = process.env.PORT || 3000;
+
+// app.get('/', (req, res) => {
+//   res.send('Hello, Express backend!');
+// });
+
+// app.listen(port, () => {
+//   console.log('Server is running');
+// });
+// `
+// 				if err := writeFile(filepath.Join(nodeDir, "server.js"), serverJSContent); err != nil {
+// 					fmt.Printf("Error writing to server.js: %v\n", err)
+// 					return
+// 				}
+
+// 				// Step 5: Create Dockerfile for Node.js backend
+// 				dockerfileContent := `FROM node:18
+
+// WORKDIR /app
+
+// COPY package*.json ./
+
+// RUN npm install
+
+// COPY . .
+
+// EXPOSE 3000
+
+// CMD ["node", "server.js"]
+// `
+// 				if err := writeFile(filepath.Join(nodeDir, "Dockerfile"), dockerfileContent); err != nil {
+// 					fmt.Printf("Error writing to Dockerfile: %v\n", err)
+// 					return
+// 				}
+
+// 				// Step 6: Add PostgreSQL configuration if requested
+// 				if databasePg {
+// 					fmt.Printf("Adding PostgreSQL configuration...\n")
+
+// 					// Install PostgreSQL client for Node.js
+// 					if err := runCommand("npm install pg", nodeDir); err != nil {
+// 						fmt.Printf("Error installing PostgreSQL client: %v\n", err)
+// 						return
+// 					}
+
+// 					// Create a basic configuration file for PostgreSQL
+// 					configContent := `const { Pool } = require('pg');
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL || 'postgres://user:pass@localhost:5432/dbname',
+// });
+
+// module.exports = pool;
+// `
+// 					if err := writeFile(filepath.Join(nodeDir, "config.js"), configContent); err != nil {
+// 						fmt.Printf("Error writing to config.js: %v\n", err)
+// 						return
+// 					}
+
+// 					// Update server.js to use PostgreSQL
+// 					serverJSWithPgContent := `const express = require('express');
+// const app = express();
+// const port = process.env.PORT || 3000;
+// const pool = require('./config');
+
+// app.get('/', async (req, res) => {
+//   const client = await pool.connect();
+//   try {
+//     const result = await client.query('SELECT NOW()');
+//     res.send('Hello, Express backend');
+//   } finally {
+//     client.release();
+//   }
+// });
+
+// app.listen(port, () => {
+//   console.log('Server is running');
+// });
+// `
+// 					if err := writeFile(filepath.Join(nodeDir, "server.js"), serverJSWithPgContent); err != nil {
+// 						fmt.Printf("Error writing to server.js with PostgreSQL: %v\n", err)
+// 						return
+// 					}
+// 				}
+
+// 				fmt.Println("Node.js backend initialization completed successfully!")
+// 			}
 		},
 	}
+
 
 	rootCmd.Flags().StringVarP(&nextName, "next", "n", "", "Name of the Next.js project")
 	rootCmd.Flags().StringVarP(&viteName, "vite", "v", "", "Name of the Vite project")
 	rootCmd.Flags().BoolVar(&shadcn, "shadcn", false, "Run shadcn-ui init with -d flag after creating the Next.js app")
 	rootCmd.Flags().BoolVar(&mui, "mui", false, "Install MUI packages after creating the Next.js app")
 	rootCmd.Flags().BoolVar(&tailwind, "tw", false, "Install Tailwind CSS in a Vite project")
-	rootCmd.Flags().BoolVar(&backendGo, "b", false, "Set up a Go backend")
-	rootCmd.Flags().BoolVar(&databasePg, "d", false, "Include PostgreSQL database")
+	rootCmd.Flags().BoolVar(&backendGo, "go", false, "Set up a Go backend")
+	rootCmd.Flags().BoolVar(&backendNode, "node", false, "Set up a Node.js Express backend")
+	rootCmd.Flags().BoolVar(&databasePg, "pg", false, "Include PostgreSQL database")
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
