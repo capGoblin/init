@@ -4,8 +4,11 @@ import { buttonVariants } from "./ui/button";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Terminal } from "./Terminal";
 import { RxDownload } from "react-icons/rx";
+import { useState } from "react";
+import { PopoutMenu } from "./PopoutMenu";
 
 export const Hero = () => {
+  const [DownloadOptionStatus, setDownloadOptionStatus] = useState(false);
   return (
     <section className="container grid lg:grid-cols-2 place-items-center py-20 md:py-[250px] gap-10 ">
       <div className="text-center lg:text-start space-y-6">
@@ -32,11 +35,12 @@ export const Hero = () => {
         <div className="space-y-4 md:space-y-0 md:space-x-4">
           <Button className=" ">
             <RxDownload />
-            <span className="ml-2">Linux</span>
-          </Button>
-          <Button className=" ">
-            <RxDownload />
-            <span className="ml-2">Windows</span>
+            <span
+              onClick={() => setDownloadOptionStatus(!DownloadOptionStatus)}
+              className="ml-2"
+            >
+              Download
+            </span>
           </Button>
 
           <a
@@ -52,7 +56,7 @@ export const Hero = () => {
           </a>
         </div>
       </div>
-
+      <PopoutMenu status={DownloadOptionStatus} />
       {/* Hero cards sections */}
       <div className="z-10">
         {/* <HeroCards /> */}
