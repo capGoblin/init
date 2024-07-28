@@ -1,3 +1,5 @@
+#youtube link 
+https://youtu.be/cMUsxRaT8e4
 # init
 
 The init tool is a command-line interface for initializing new web projects with popular frameworks and configurations. It supports both Next.js and Vite projects and includes options for additional configurations like Shadcn UI and MUI (Material-UI), and can also set up backend projects using Node.js or Go with optional PostgreSQL integration.
