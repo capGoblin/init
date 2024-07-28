@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -9,7 +10,7 @@ import { RxDownload } from "react-icons/rx";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { buttonVariants } from "./ui/button";
 import { ModeToggle } from "./mode-toggle";
-
+import { NavbarPopoutMenu } from "./NavbarPopoutMenu";
 // interface RouteProps {
 //   href: string;
 //   label: string;
@@ -35,7 +36,7 @@ import { ModeToggle } from "./mode-toggle";
 // ];
 
 export const Navbar = () => {
-  // const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [DownloadOptionStatus, setDownloadOptionStatus] = useState(false);
   return (
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
@@ -54,9 +55,11 @@ export const Navbar = () => {
           <div className="hidden md:flex gap-2">
             <a
               rel="noreferrer noopener"
-              href="/#"
+              onClick={() => setDownloadOptionStatus(!DownloadOptionStatus)}
               target="_blank"
-              className={`border ${buttonVariants({ variant: "secondary" })}`}
+              className={`border cursor-pointer ${buttonVariants({
+                variant: "secondary",
+              })}`}
             >
               <RxDownload className="mr-2 w-5 h-5" />
               Download
@@ -66,7 +69,9 @@ export const Navbar = () => {
               rel="noreferrer noopener"
               href="https://github.com/capGoblin/init"
               target="_blank"
-              className={`border ${buttonVariants({ variant: "secondary" })}`}
+              className={`border cursor-pointer ${buttonVariants({
+                variant: "secondary",
+              })}`}
             >
               <GitHubLogoIcon className="mr-2 w-5 h-5" />
               Github
@@ -76,6 +81,7 @@ export const Navbar = () => {
           </div>
         </NavigationMenuList>
       </NavigationMenu>
+      <NavbarPopoutMenu status={DownloadOptionStatus} />
     </header>
   );
 };
