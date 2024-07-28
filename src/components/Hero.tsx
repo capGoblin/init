@@ -15,21 +15,22 @@ export const Hero = () => {
         <main className="text-5xl md:text-6xl font-bold">
           <h1 className="inline">
             <span className="inline bg-gradient-to-r from-[#F596D3]  to-[#D247BF] text-transparent bg-clip-text">
-              Streamline
+              Instantly
             </span>{" "}
-            your
+            build your
           </h1>{" "}
           <h2 className="inline">
             <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text">
-              Development
+              Web Stack
             </span>{" "}
-            workflow
+            using one command
           </h2>
         </main>
 
         <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
-          Effortlessly create projects with customizable setups in a single
-          command.
+          Effortlessly bootstrap full-stack projects with seamless frontend and
+          backend setups, integrating UI frameworks and databases for smooth
+          development.
         </p>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4">

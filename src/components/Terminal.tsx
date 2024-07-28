@@ -1,6 +1,7 @@
 import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
 
 import "./Terminal.css";
+import { text } from "stream/consumers";
 
 export const Terminal = () => {
   const words = [
@@ -8,13 +9,22 @@ export const Terminal = () => {
       text: "init",
     },
     {
-      text: "-n",
+      text: "-f",
     },
     {
-      text: "my-app",
+      text: "next",
     },
     {
-      text: "--mui",
+      text: "--shadcn",
+    },
+    {
+      text: "-b",
+    },
+    {
+      text: "node",
+    },
+    {
+      text: "--pg",
     },
   ];
   return (
@@ -36,8 +46,8 @@ export const Terminal = () => {
         <p
           className={`opacity-0 font-semibold text-lg mt-2 blurFadeIn text-white `}
         >
-          creating your next app with typescript, tailwind,<br></br> material UI
-          inbuilt ..
+          creating your next app with Typescript, Tailwind, ShadCN,
+          <br></br> with backend NodeJs, postgreSQL DB inbuilt...
         </p>
       </div>
     </div>

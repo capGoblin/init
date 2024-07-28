@@ -5,7 +5,11 @@ export const HowItWorks = () => {
   return (
     <section id="howItWorks" className="container py-24 sm:py-32 ">
       <h2 className="text-3xl text-center md:text-4xl font-bold pb-5 mb-10">
-        How creating projects with multiple tech stacks has always been a HASSLE{" "}
+        It's always been a{" "}
+        <span className="bg-gradient-to-r from-[#F596D3]  to-[#D247BF] text-transparent bg-clip-text">
+          PAIN
+        </span>{" "}
+        to create projects using<br></br> multiple tech stacks.{" "}
         {/* <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
           Works{" "}
         </span> */}
@@ -30,11 +34,10 @@ export const HowItWorks = () => {
       </div> */}
       <div className="grid grid-cols-2 grid-cols-[1fr_1fr] gap-20">
         <BigTerminal />
-        <div className="flex justify-center items-center text-3xl font-bold text-end box-border">
-          Setting up a development environment often requires multiple commands
-          to install various frameworks and libraries, leading to unnecessary
-          complexity and time consumption
-        </div>
+        <p className="flex justify-center items-center text-3xl font-bold text-end box-border">
+          Setting up a development environment is complex and time-consuming due
+          to multiple installation commands.
+        </p>
       </div>
     </section>
   );
