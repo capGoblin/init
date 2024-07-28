@@ -1,6 +1,6 @@
 {
-  "name": "@init/cfasfsfli",
-  "version": "1.0.0",
+  "name": "@capgoblin/init",
+  "version": "1.0.1",
   "description": "The init tool is a command-line interface for initializing new web projects with popular frameworks and configurations.",
   "main": "index.js",
   "bin": {

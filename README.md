@@ -61,7 +61,7 @@ To create a new Vite project with React and TypeScript, use:
 ```
 
 Flags:
--v, --vite: Create a Vite project with React and TypeScript.
+--vite: Create a Vite project with React and TypeScript.
 --tw: To add tailwindcss to the vite app
 --shadcn: Run Shadcn UI initialization after creating the Next.js app.
 --mui: Install MUI packages after creating the Next.js app.
@@ -111,4 +111,10 @@ Example:
 ```sh
 ./init init -f vite --shadcn -b go --pg
 ./init init -f next --mui -b node --pg
+```
+
+### Additionally, the CLI can be installed as a Node package on any platform, including Linux. For this to work, you will need to have [Node JS](https://nodejs.org/en) installed on your machine.
+
+```sh
+npm install --global @capgoblin/init
 ```
