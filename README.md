@@ -118,3 +118,5 @@ Example:
 ```sh
 npm install --global @capgoblin/init
 ```
+
+The starter template code was used from [this GitHub repository](https://github.com/leoMirandaa/shadcn-landing-page)
