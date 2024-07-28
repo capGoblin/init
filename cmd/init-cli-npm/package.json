@@ -1,0 +1,25 @@
+{
+  "name": "@init/cfasfsfli",
+  "version": "1.0.0",
+  "description": "The init tool is a command-line interface for initializing new web projects with popular frameworks and configurations.",
+  "main": "index.js",
+  "bin": {
+    "init-cli": "./bin/init-cli"
+  },
+  "scripts": {
+    "start": "./bin/init-cli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/capGoblin/init.git"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "capGoblin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/capGoblin/init/issues"
+  },
+  "homepage": "https://github.com/capGoblin/init"
+}
