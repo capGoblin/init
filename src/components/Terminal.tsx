@@ -1,7 +1,7 @@
 import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
 
 import "./Terminal.css";
-import { text } from "stream/consumers";
+// import { text } from "stream/consumers";
 
 export const Terminal = () => {
   const words = [

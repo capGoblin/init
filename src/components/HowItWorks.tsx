@@ -32,7 +32,7 @@ export const HowItWorks = () => {
           </Card>
         ))}
       </div> */}
-      <div className="grid grid-cols-2 grid-cols-[1fr_1fr] gap-20">
+      <div className="grid  grid-cols-[1fr_1fr] gap-20">
         <BigTerminal />
         <p className="flex justify-center items-center text-3xl font-bold text-end box-border">
           Setting up a development environment is complex and time-consuming due

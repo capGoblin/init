@@ -1,6 +1,5 @@
 import { Statistics } from "./Statistics";
 import pilot from "../assets/pilot.png";
-import { Terminal } from "./Terminal";
 
 export const About = () => {
   return (

@@ -9,11 +9,11 @@ export const PopoutMenu = ({ status }: Props) => {
     <div
       className={`${
         status ? "inline" : "hidden"
-      } absolute flex gap-2 left-[245px] bottom-[300px] `}
+      } absolute flex gap-2 left-[245px] bottom-[250px] `}
     >
       <a
         rel="noreferrer noopener"
-        href="https://github.com/capGoblin/init/tree/main/public/DownloadFiles/Linux"
+        href="/DownloadFiles/Linux/init"
         target="_blank"
         className={`border cursor-pointer ${buttonVariants({
           variant: "secondary",
@@ -23,7 +23,7 @@ export const PopoutMenu = ({ status }: Props) => {
       </a>
       <a
         rel="noreferrer noopener"
-        href="https://github.com/capGoblin/init/tree/main/public/DownloadFiles/Windows"
+        href="/DownloadFiles/Windows/init"
         target="_blank"
         className={`border cursor-pointer ${buttonVariants({
           variant: "secondary",

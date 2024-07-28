@@ -13,7 +13,7 @@ export const NavbarPopoutMenu = ({ status }: Props) => {
     >
       <a
         rel="noreferrer noopener"
-        href="https://github.com/capGoblin/init/tree/main/public/DownloadFiles/Linux"
+        href="/DownloadFiles/Linux/init"
         target="_blank"
         className={`border cursor-pointer ${buttonVariants({
           variant: "secondary",
@@ -23,7 +23,7 @@ export const NavbarPopoutMenu = ({ status }: Props) => {
       </a>
       <a
         rel="noreferrer noopener"
-        href="https://github.com/capGoblin/init/tree/main/public/DownloadFiles/Windows"
+        href="/DownloadFiles/Windows/init"
         target="_blank"
         className={`border cursor-pointer ${buttonVariants({
           variant: "secondary",
