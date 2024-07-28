@@ -62,7 +62,7 @@ export const TypewriterEffectSmooth = ({
         }}
       >
         <div
-          className=" text-base font-bold"
+          className=" text-lg font-bold"
           style={{
             whiteSpace: "nowrap",
           }}
