@@ -467,7 +467,6 @@ module.exports = {
 				}
 
 				fmt.Printf("Project %s initialized successfully with Vite!\n", appName)
-				return
 			}
 
 			if frontend == "next" {
@@ -722,6 +721,17 @@ app.listen(port, () => {
 
 				fmt.Println("Node.js backend initialization completed successfully!")
 			}
+
+
+
+
+
+			// // Open the project in VS Code
+			// if err := runCommand("code .", appName); err != nil {
+			// 	fmt.Printf("Error opening project in VS Code: %v\n", err)
+			// 	return
+			// }
+
 
 		},
 	}
