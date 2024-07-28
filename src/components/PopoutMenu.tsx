@@ -13,7 +13,7 @@ export const PopoutMenu = ({ status }: Props) => {
     >
       <a
         rel="noreferrer noopener"
-        href="/DownloadFiles/Linux/init"
+        href="/DownloadFiles/Linux/init-cli-linux"
         target="_blank"
         className={`border cursor-pointer ${buttonVariants({
           variant: "secondary",
@@ -23,7 +23,7 @@ export const PopoutMenu = ({ status }: Props) => {
       </a>
       <a
         rel="noreferrer noopener"
-        href="/DownloadFiles/Windows/init"
+        href="/DownloadFiles/Windows/init-cli-windows.exe"
         target="_blank"
         className={`border cursor-pointer ${buttonVariants({
           variant: "secondary",
